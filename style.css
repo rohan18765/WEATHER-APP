@@ -1,0 +1,33 @@
+
+ body {
+            font-family: 'Inter', sans-serif;
+            /* This gradient creates the "sky" effect */
+            background: linear-gradient(to bottom right, #3b82f6, #6366f1, #9333ea);
+             /* background: linear-gradient(to bottom right, #eaea83, #f2f20e, #caef11); */
+}
+
+/* Custom class for the "glassmorphism" effect */
+.glass-card {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom scrollbar for the forecast section */
+.forecast-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+.forecast-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+.forecast-scroll::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#forecast-container {
+  display: flex;
+  gap: 15px; /* space between cards */
+}

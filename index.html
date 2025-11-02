@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AasMan - Weather Finder</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Google Font (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Main Weather App Container -->
+    <div class="w-full max-w-4xl glass-card rounded-2xl shadow-2xl p-6 md:p-10 text-white">
+
+        <!-- Header and Search Bar -->
+        <header>
+            <div class="flex items-center justify-between">
+                <h1 class="text-3xl font-bold flex items-center ">
+                    <!-- Simple Cloud Icon SVG -->
+                    <svg class="w-8 h-8 mr-2 text-white-300" fill="white" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.09A4.001 4.001 0 003 15z"></path></svg>
+                    AasMan
+                </h1>
+            
+            </div>
+
+            <!-- Search Form -->
+            <form id="search-form" class="flex w-full mt-6 rounded-xl overflow-hidden shadow-lg">
+                <input 
+                    type="text" 
+                    id="city-input"
+                    placeholder="Enter city name..." 
+                    class="w-full p-4 text-gray-900 placeholder-gray-500 focus:outline-none bg-white"
+                >
+                <button 
+                    type="submit" 
+                    id="search-button"
+                    class="p-4 bg-blue-500 hover:bg-blue-600 transition-colors duration-300 focus:outline-none"
+                >
+                    <!-- Search Icon SVG -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+            </form>
+        </header>
+
+        <!-- Loading Spinner (Hidden by default) -->
+        <div id="loading-spinner" class="hidden text-center py-10">
+            <svg class="animate-spin h-10 w-10 text-white mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="mt-2 text-lg">Loading...</p>
+        </div>
+
+        <!-- Error Message (Hidden by default) -->
+        <div id="error-message" class="hidden text-center p-6 bg-red-500/50 rounded-lg mt-6">
+            <h3 class="text-xl font-semibold">Error!</h3>
+            <p id="error-text">Could not find weather data for that city. Please try again.</p>
+        </div>
+
+        <!-- Main Weather Display (Your JS will populate this) -->
+        <!-- I've added placeholder content so you can see the layout -->
+        <main id="weather-display" class="mt-8 hidden">
+            
+            <!-- Current Weather: Top Section -->
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <!-- Left Side: City Info -->
+                <div>
+                    <h2 id="city-name" class="text-4xl font-bold"></h2>
+                    <p id="current-date-time" class="text-lg text-gray-300"></p>
+                    <p id="weather-description" class="text-2xl font-medium mt-2 capitalize"></p>
+                </div>
+                <!-- Right Side: Temp & Icon -->
+                <div class="flex items-center mt-6 md:mt-0">
+                    <div id="current-temp" class="text-7xl md:text-8xl font-bold"></div>
+                    <!-- Current Weather Icon (Placeholder: Sun) -->
+                    <div id="current-icon" class="w-24 h-24 ml-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full text-yellow-300">
+                            <path d="M12 2v2"/>
+                            <path d="m4.93 4.93 1.41 1.41"/>
+                            <path d="M20 12h2"/>
+                            <path d="m19.07 4.93-1.41 1.41"/>
+                            <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/>
+                            <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Weather: Details Grid -->
+            <div class="mt-10 p-6 glass-card rounded-xl">
+                <h3 class="text-xl font-semibold mb-4">Current Details</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                    <div class="p-4 bg-white/10 rounded-lg">
+                        <span class="text-sm text-gray-300">FEELS LIKE</span>
+                        <p id="feels-like" class="text-2xl font-semibold"></p>
+                    </div>
+                    <div class="p-4 bg-white/10 rounded-lg">
+                        <span class="text-sm text-gray-300">WIND</span>
+                        <p id="wind-speed" class="text-2xl font-semibold"></p>
+                    </div>
+                    <div class="p-4 bg-white/10 rounded-lg">
+                        <span class="text-sm text-gray-300">HUMIDITY</span>
+                        <p id="humidity" class="text-2xl font-semibold"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5-Day Forecast -->
+            <div class="mt-10">
+                <h3 id="forecast" class="text-xl font-semibold mb-4 "></h3>
+                <!-- Horizontal scrolling container -->
+                <div id="forecast-container" class="forecast-scroll flex space-x-4 overflow-x-auto pb-4">
+                    
+                    <!-- Forecast Card 1 (Placeholder) -->
+
+                </div>
+            </div>
+        </main>
+        
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
