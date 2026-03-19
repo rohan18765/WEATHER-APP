@@ -17,13 +17,6 @@ A simple and responsive weather application that provides real-time weather upda
 - ⛅ Real-time data fetched from API  
 - 📱 Fully responsive design  
 
----
-
-## 📷 Screenshots
-
-![App Screenshot](assets/screenshot.png)
-
----
 
 ## 🛠️ Tech Stack
 
