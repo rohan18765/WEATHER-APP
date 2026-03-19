@@ -38,7 +38,7 @@ A simple and responsive weather application that provides real-time weather upda
 
 1. Clone the repository  
 ```bash
-git clone https://github.com/your-username/weather-app.git
+(https://github.com/rohan18765/WEATHER-APP.git)
 
 Open index.html in your browser
 
